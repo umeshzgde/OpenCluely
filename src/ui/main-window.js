@@ -25,7 +25,11 @@ class MainWindowUI {
         
         // Define available skills for navigation
         this.availableSkills = [
-            'dsa'
+            'dsa',
+            'programming',
+            'system-design',
+            'behavioral',
+            'data-engineering'
         ];
         
         this.init();
@@ -288,10 +292,13 @@ class MainWindowUI {
             }
         });
 
-        // Skill indicator click handler toggles DSA skill
+        // Skill indicator click handler cycles through available skills
         this.skillIndicator.addEventListener('click', () => {
             if (!this.isInteractive) return;
-            const newSkill = 'dsa';
+            const currentIndex = this.availableSkills.indexOf(this.currentSkill);
+            const nextIndex = (currentIndex + 1) % this.availableSkills.length;
+            const newSkill = this.availableSkills[nextIndex];
+            this.currentSkill = newSkill;
             if (window.electronAPI && window.electronAPI.updateActiveSkill) {
                 window.electronAPI.updateActiveSkill(newSkill).then(() => {
                     this.handleSkillActivated(newSkill);
@@ -527,7 +534,8 @@ class MainWindowUI {
             'programming': 'Programming',
             'devops': 'DevOps',
             'system-design': 'System Design',
-            'negotiation': 'Negotiation'
+            'negotiation': 'Negotiation',
+            'data-engineering': 'Data Engineering'
         };
         
         const displaySkill = skillNames[skill] || skill.toUpperCase();
@@ -766,7 +774,8 @@ class MainWindowUI {
             'programming': 'Programming',
             'devops': 'DevOps',
             'system-design': 'System Design',
-            'negotiation': 'Negotiation'
+            'negotiation': 'Negotiation',
+            'data-engineering': 'Data Engineering'
         };
         
         logger.info('Updating skill indicator', {
@@ -879,7 +888,8 @@ class MainWindowUI {
             'programming': 'Programming',
             'devops': 'DevOps',
             'system-design': 'System Design',
-            'negotiation': 'Negotiation'
+            'negotiation': 'Negotiation',
+            'data-engineering': 'Data Engineering'
         };
         
         const displayName = skillNames[skill] || skill.toUpperCase();
